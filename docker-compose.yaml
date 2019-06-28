@@ -1,0 +1,26 @@
+version: '3'
+services:
+  node:
+    build: ./node
+    container_name: node
+    working_dir: /app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./node/:/app
+      - /app/node_modules  
+    command: "yarn run start"
+  reactapp:
+    build: ./reactapp
+    container_name: reactapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./reactapp/:/app
+      - /app/node_modules
+    command: "npm start"
+  mongo:
+    image: mongo:4.0.10-xenial
+    container_name: mongo
+    ports:
+      - "27017:27017"
